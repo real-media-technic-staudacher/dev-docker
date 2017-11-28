@@ -1,0 +1,60 @@
+# Define a .env
+# DOCKER_HOSTNAME = customer.lvh.me
+# DOCKER_EXTERNAL_MYSQL_PORT = 33062 # optionally (Activate here in docker-compose.yml as well)
+
+version: '2'
+services:
+  app:
+    image: rmts/apache-php70:latest
+    volumes:
+      - ./:/var/www/html
+      - ~/.ssh:/root/.ssh
+      - /tmp
+    environment:
+      - "VIRTUAL_HOST=${DOCKER_HOSTNAME}"
+      - "VIRTUAL_PORT=80"
+      - "DB_PORT=3306"
+      - "DB_HOST=database"
+    expose:
+      - "80"
+    networks:
+      - CUSTOMERnet
+      - nginx-proxy
+
+  database:
+    image: rmts/database:latest
+    environment:
+      - "MYSQL_DATABASE=${DB_DATABASE}"
+#    ports:
+#      - "${DOCKER_EXTERNAL_MYSQL_PORT}:3306"
+    networks:
+      - CUSTOMERnet
+
+  webpack-watch:
+    image: rmts/webpack-watch:latest
+    volumes:
+      - ./:/home/app
+      - /home/app/node_modules
+    networks:
+      - CUSTOMERnet
+
+  elasticsearch:
+    image: elasticsearch:2.4.5
+    networks:
+      - CUSTOMERnet
+
+  kibana:
+    image: kibana:4.6.6
+    environment:
+      - "VIRTUAL_HOST=kibana.${DOCKER_HOSTNAME}"
+      - "VIRTUAL_PORT=5601"
+    networks:
+      - CUSTOMERnet
+      - nginx-proxy
+
+networks:
+  CUSTOMERnet:
+    driver: bridge
+  nginx-proxy:
+    external:
+      name: ngnixproxy_default
