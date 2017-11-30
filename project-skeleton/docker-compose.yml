@@ -9,10 +9,6 @@ services:
     environment:
       - "VIRTUAL_HOST=CUSTOMER.lvh.me"
       - "VIRTUAL_PORT=80"
-      - "DB_PORT=3306"
-      - "DB_HOST=database"
-    expose:
-      - "80"
     networks:
       - CUSTOMERnet
       - nginx-proxy

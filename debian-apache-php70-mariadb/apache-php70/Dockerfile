@@ -20,9 +20,6 @@ COPY apache2.conf /etc/apache2/
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
-RUN ln -sf /proc/self/fd/1 /var/log/apache2/access.log && \
-    ln -sf /proc/self/fd/1 /var/log/apache2/error.log
-
 WORKDIR /var/www/html
 
 EXPOSE 80
