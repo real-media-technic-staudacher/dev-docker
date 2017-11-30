@@ -14,17 +14,15 @@ RUN apt-get update && \
 
 RUN a2enmod rewrite
 
-COPY 000-default.conf /etc/apache2/sites-available/
-
-COPY apache2.conf /etc/apache2/
+COPY apache/000-default.conf /etc/apache2/sites-available/
+COPY apache/apache2.conf /etc/apache2/
+COPY supervisor/*.conf /etc/supervisor/conf.d/
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 WORKDIR /var/www/html
 
 EXPOSE 80
-
-COPY supervisor.conf /etc/supervisor/conf.d
 
 COPY docker-entrypoint.sh /
 
