@@ -17,6 +17,9 @@ RUN a2enmod rewrite
 COPY apache/000-default.conf /etc/apache2/sites-available/
 COPY apache/apache2.conf /etc/apache2/
 COPY supervisor/*.conf /etc/supervisor/conf.d/
+COPY cli_php.ini /etc/php/7.0/cli/php.ini
+
+RUN ln -sf /proc/self/fd/1 /var/www/html/storage/logs/laravel.log
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
