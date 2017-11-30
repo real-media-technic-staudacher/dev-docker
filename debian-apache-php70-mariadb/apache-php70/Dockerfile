@@ -17,7 +17,8 @@ RUN a2enmod rewrite
 COPY apache/000-default.conf /etc/apache2/sites-available/
 COPY apache/apache2.conf /etc/apache2/
 COPY supervisor/*.conf /etc/supervisor/conf.d/
-COPY cli_php.ini /etc/php/7.0/cli/php.ini
+COPY php_cli.ini /etc/php/7.0/cli/php.ini
+COPY php.ini /etc/php/7.0/apache2/php.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
