@@ -1,7 +1,7 @@
 version: '2'
 services:
   app:
-    image: jwilder/nginx-proxy
+    build: ./nginx-proxy
     restart: always
     container_name: nginx-proxy
     ports:
