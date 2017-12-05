@@ -22,7 +22,7 @@ services:
     networks:
       - CUSTOMERnet
 
-  webpack-watch:
+  webpack:
     image: rmts/webpack:latest
     volumes:
       - ./:/home/app
