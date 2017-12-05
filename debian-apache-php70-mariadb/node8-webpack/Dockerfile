@@ -4,4 +4,4 @@ MAINTAINER Patrick Thomas <patrick.thomas@staudacher.de>
 
 WORKDIR /home/app
 
-CMD npm install && npm run watch
+CMD npm install
