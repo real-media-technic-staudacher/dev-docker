@@ -29,6 +29,10 @@ Use NPM
 
     docker-compose run node bash
     npm install && npm run dev
+    
+See logfiles
+
+    docker-compose logs -f
 
 ## In your Laravel Project
 
