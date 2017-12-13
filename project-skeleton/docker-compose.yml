@@ -3,8 +3,8 @@ services:
   app:
     image: rmts/apache-php70:latest
     volumes:
-      - ./:/var/www/html
-      - ~/.ssh:/root/.ssh
+      - ./:/var/www/html:cached
+      - ~/.ssh:/root/.ssh:cached
       - /tmp
     environment:
       - "VIRTUAL_HOST=CUSTOMER.lvh.me"
@@ -25,7 +25,7 @@ services:
   webpack:
     image: rmts/webpack:latest
     volumes:
-      - ./:/home/app
+      - ./:/home/app:cached
       - /home/app/node_modules
     networks:
       - CUSTOMERnet
