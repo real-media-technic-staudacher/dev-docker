@@ -29,6 +29,10 @@ Use NPM
 
     docker-compose run node bash
     npm install && npm run dev
+
+or
+    
+    docker-compose run webpack sh -c 'npm install && npm run watch'
     
 See logfiles
 
