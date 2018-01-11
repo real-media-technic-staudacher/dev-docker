@@ -22,6 +22,11 @@ services:
     networks:
       - CUSTOMERnet
 
+  redis:
+    image: redis:4-alpine
+    networks:
+      - CUSTOMERnet
+
   webpack:
     image: rmts/webpack:latest
     volumes:
