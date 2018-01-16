@@ -20,6 +20,7 @@ COPY apache/apache2.conf /etc/apache2/
 COPY supervisor/*.conf /etc/supervisor/conf.d/
 COPY php_cli.ini /etc/php/7.0/cli/php.ini
 COPY php.ini /etc/php/7.0/apache2/php.ini
+COPY xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
