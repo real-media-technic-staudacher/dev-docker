@@ -24,6 +24,8 @@ COPY xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
+ENV PHP_IDE_CONFIG "docker"
+
 WORKDIR /var/www/html
 
 EXPOSE 80
