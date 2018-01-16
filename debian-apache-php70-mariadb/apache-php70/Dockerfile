@@ -22,9 +22,6 @@ COPY php_cli.ini /etc/php/7.0/cli/php.ini
 COPY php.ini /etc/php/7.0/apache2/php.ini
 COPY xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
 
-RUN echo "xdebug.remote_host=$(getent hosts docker.for.mac.localhost | awk '{ print $1 }')" >> /etc/php/7.0/mods-available/xdebug.ini
-
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 WORKDIR /var/www/html

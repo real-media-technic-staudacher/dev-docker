@@ -43,3 +43,7 @@ See logfiles
 Set this to get error logs from your docker container
 
     APP_LOG=errorlog
+    
+## Debugging
+
+Use Port 9001
