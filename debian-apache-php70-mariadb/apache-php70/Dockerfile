@@ -27,6 +27,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 WORKDIR /var/www/html
 
 EXPOSE 80
+EXPOSE 9000
 
 COPY docker-entrypoint.sh /
 
