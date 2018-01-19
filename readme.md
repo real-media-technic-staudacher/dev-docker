@@ -47,3 +47,11 @@ Set this to get error logs from your docker container
 ## Debugging
 
 Use Port 9001
+
+## Testing
+
+A testing database will be created automatically
+
+MYSQL_DATABASE = testing
+MYSQL_USER = testing
+MYSQL_PASSWORD = testing
