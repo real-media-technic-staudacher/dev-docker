@@ -29,13 +29,13 @@ ENV PHP_IDE_CONFIG "serverName=docker"
 
 RUN mkdir /var/run/sshd \
     && chmod 0755 /var/run/sshd \
-    && /usr/sbin/sshd
-RUN useradd --create-home --shell /bin/bash --groups sudo php-remote \
-    &&  echo "php-remote:php-remote" | chpasswd
+    && sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
+RUN echo 'root:root' | chpasswd
 
 WORKDIR /var/www/html
 
 EXPOSE 80
+EXPOSE 22
 EXPOSE 9001
 
 COPY docker-entrypoint.sh /
