@@ -27,6 +27,12 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ 
 
 ENV PHP_IDE_CONFIG "serverName=docker"
 
+RUN mkdir /var/run/sshd \
+    && chmod 0755 /var/run/sshd \
+    && /usr/sbin/sshd
+RUN useradd --create-home --shell /bin/bash --groups sudo php-remote \
+    &&  echo "php-remote:php-remote" | chpasswd
+
 WORKDIR /var/www/html
 
 EXPOSE 80
