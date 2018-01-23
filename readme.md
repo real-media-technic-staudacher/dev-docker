@@ -55,3 +55,8 @@ A testing database will be created automatically
 MYSQL_DATABASE = testing
 MYSQL_USER = testing
 MYSQL_PASSWORD = testing
+
+Setup your remote php interpreter
+- Languages & Frameworks > PHP > CLI Interpreter
+- Choose "SSH Credentials". User "root". Auth Type "Key pair"
+- If you do this the first time. Generate Public Key on your host. Copy your id_rsa.pub to authorized_hosts in your `~/.ssh` directory
