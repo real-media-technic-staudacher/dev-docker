@@ -1,7 +1,7 @@
 version: '2'
 services:
   app:
-    image: rmts/apache-php70:latest
+    image: rmts/app:7.2
     volumes:
       - ./:/var/www/html:cached
       - ~/.ssh:/root/.ssh:cached
@@ -17,7 +17,7 @@ services:
       - nginx-proxy
 
   database:
-    image: rmts/database:latest
+    image: rmts/database:10.2
     environment:
       - "MYSQL_DATABASE=${DB_DATABASE}"
 #    ports:
@@ -31,7 +31,7 @@ services:
       - CUSTOMERnet
 
   webpack:
-    image: rmts/webpack:latest
+    image: rmts/webpack:9
     volumes:
       - ./:/home/app:cached
       - /home/app/node_modules
