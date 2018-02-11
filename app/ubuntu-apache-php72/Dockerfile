@@ -18,12 +18,14 @@ RUN apt-get update \
  && docker-php-ext-install mysqli pdo pdo_mysql zip \
  && a2enmod rewrite
 
+ENV PATH "$PATH:$HOME/.composer/vendor/bin"
+
 ENV PHP_IDE_CONFIG "serverName=docker"
 
-#RUN mkdir /var/run/sshd \
-#    && chmod 0755 /var/run/sshd \
-#    && sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
-#RUN echo 'root:root' | chpasswd
+RUN mkdir /var/run/sshd \
+    && chmod 0755 /var/run/sshd \
+    && sed -i "s/#PasswordAuthentication yes/PasswordAuthentication no/" /etc/ssh/sshd_config
+RUN echo 'root:root' | chpasswd
 
 WORKDIR /var/www
 
