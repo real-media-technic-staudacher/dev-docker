@@ -14,10 +14,13 @@ COPY xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 RUN apt-get update \
- && apt-get install -y git openssh-server zlib1g-dev \
+ && apt-get install -y git openssh-server zlib1g-dev supervisor \
  && docker-php-ext-install mysqli pdo pdo_mysql zip \
- && a2enmod rewrite
-
+ && a2enmod rewrite \
+ && rm -rf /var/lib/apt/lists/* \
+ && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
+ && apt-get clean
+ 
 ENV PATH "$PATH:$HOME/.composer/vendor/bin"
 
 ENV PHP_IDE_CONFIG "serverName=docker"
@@ -41,6 +44,6 @@ EXPOSE 80
 EXPOSE 22
 EXPOSE 9001
 
-#COPY docker-entrypoint.sh /
-#
-#ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
+COPY docker-entrypoint.sh /
+
+ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
