@@ -25,6 +25,13 @@ services:
     networks:
       - CUSTOMERnet
 
+  database-testing:
+    image: rmts/database:10.1
+    environment:
+      - "MYSQL_DATABASE=testing"
+    networks:
+      - CUSTOMERnet
+
   redis:
     image: redis:4-alpine
     networks:
