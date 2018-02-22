@@ -39,6 +39,7 @@ EXPOSE 80
 EXPOSE 22
 EXPOSE 9001
 
-COPY docker-entrypoint.sh /
+ENV SUPERVISOR "app-default.conf"
 
+COPY docker-entrypoint.sh /
 ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
