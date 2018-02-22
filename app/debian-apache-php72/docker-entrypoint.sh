@@ -7,4 +7,6 @@ case "$1" in
         ;;
 esac
 
+cp "${SUPERVISOR}" /etc/supervisor/conf.d
+
 exec /usr/bin/supervisord -n
