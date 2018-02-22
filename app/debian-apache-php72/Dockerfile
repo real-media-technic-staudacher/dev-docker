@@ -39,7 +39,9 @@ EXPOSE 80
 EXPOSE 22
 EXPOSE 9001
 
-ENV SUPERVISOR ""
+## Will be handled in the docker-entrypoint.sh because outside I had no access to environment variables!?
+ENV SUPERVISOR_PATH "/var/www/html/resources/queue-worker"
+ENV SUPERVISOR_CONFIGS ""
 
 COPY docker-entrypoint.sh /
 ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]

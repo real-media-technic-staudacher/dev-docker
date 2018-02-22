@@ -12,8 +12,8 @@ OLDIFS="$IFS"
 
 export IFS=" "
 
-for filename in $SUPERVISOR; do
-  cp "/var/www/html/resources/queue-worker/${filename}" /etc/supervisor/conf.d
+for filename in $SUPERVISOR_CONFIGS; do
+  cp "$SUPERVISOR_PATH/${filename}" /etc/supervisor/conf.d
 done
 
 export IFS="$OLDIFS"

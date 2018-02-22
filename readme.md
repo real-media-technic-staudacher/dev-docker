@@ -60,3 +60,19 @@ Setup your remote php interpreter
 - Languages & Frameworks > PHP > CLI Interpreter
 - Choose "SSH Credentials". User "root". Auth Type "Key pair"
 - If you do this the first time. Generate Public Key on your host. Copy your id_rsa.pub to authorized_hosts in your `~/.ssh` directory
+
+## Queue worker
+
+Activate it using environment variables
+
+    services:
+      app:
+        image: rmts/app:7.2
+        volumes:
+          - ./:/var/www/html:cached
+        environment:
+          - "SUPERVISOR=app-default.conf scoopos-aggregations.conf scoopos-blacklist.conf scoopos-mediaserver-default.conf scoopos-mediaserver-formatgeneration.conf scoopos-mediaserver-validation.conf"
+          - "VIRTUAL_HOST=scoop-deploy.lvh.me"
+          - "VIRTUAL_PORT=80"
+          
+It defaults to `ENV SUPERVISOR_PATH "/var/www/html/resources/queue-worker". You can overwrite this base path as well in your `docker-compose.yml`
