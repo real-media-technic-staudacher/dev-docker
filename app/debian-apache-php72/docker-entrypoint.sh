@@ -8,15 +8,12 @@ case "$1" in
 esac
 
 ########## Did only work directly in docker-entrypoint.sh ##############
-OLDIFS="$IFS"
+QUEUE_WORKER="${QUEUE_WORKER//\"/}"
+files="${QUEUE_WORKER// /$IFS}"
 
-export IFS=" "
-
-for filename in $SUPERVISOR_CONFIGS; do
-  cp "$SUPERVISOR_PATH/${filename}" /etc/supervisor/conf.d
+for filename in $QUEUE_WORKER; do
+  cp "$QUEUE_WORKER_DIR/${filename}" /etc/supervisor/conf.d
 done
-
-export IFS="$OLDIFS"
 ########## Did only work directly in docker-entrypoint.sh ##############
 
 exec /usr/bin/supervisord -n

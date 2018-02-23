@@ -38,6 +38,10 @@ EXPOSE 80
 EXPOSE 22
 EXPOSE 9001
 
+## Will be handled in the docker-entrypoint.sh because outside I had no access to environment variables!?
+ENV QUEUE_WORKER ""
+ENV QUEUE_WORKER_DIR "/var/www/html/resources/queue-worker"
+
 COPY docker-entrypoint.sh /
 
-ENTRYPOINT ["/bin/sh", "/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/docker-entrypoint.sh"]

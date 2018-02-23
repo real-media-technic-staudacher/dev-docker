@@ -71,8 +71,8 @@ Activate it using environment variables
         volumes:
           - ./:/var/www/html:cached
         environment:
-          - "SUPERVISOR=app-default.conf scoopos-aggregations.conf scoopos-blacklist.conf scoopos-mediaserver-default.conf scoopos-mediaserver-formatgeneration.conf scoopos-mediaserver-validation.conf"
+          - "QUEUE_WORKER=app-default.conf scoopos-aggregations.conf scoopos-blacklist.conf scoopos-mediaserver-default.conf scoopos-mediaserver-formatgeneration.conf scoopos-mediaserver-validation.conf"
           - "VIRTUAL_HOST=scoop-deploy.lvh.me"
           - "VIRTUAL_PORT=80"
           
-It defaults to `ENV SUPERVISOR_PATH "/var/www/html/resources/queue-worker". You can overwrite this base path as well in your `docker-compose.yml`
+It defaults to `ENV QUEUE_WORKER_DIR "/var/www/html/resources/queue-worker". You can overwrite this base path as well in your `docker-compose.yml`
