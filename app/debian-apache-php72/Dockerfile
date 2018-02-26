@@ -14,7 +14,7 @@ COPY xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 RUN apt-get update \
- && apt-get install -y git openssh-server zlib1g-dev supervisor libmagickwand-dev \
+ && apt-get install -y git openssh-server zlib1g-dev supervisor libmagickwand-dev mysql-client \
  && pecl install imagick  \
  && docker-php-ext-enable imagick \
  && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl \
