@@ -17,7 +17,7 @@ RUN apt-get update \
  && apt-get install -y git openssh-server zlib1g-dev supervisor libmagickwand-dev mysql-client libyaml-dev \
  && pecl install imagick yaml \
  && docker-php-ext-enable imagick yaml \
- && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl \
+ && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl gd \
  && a2enmod rewrite \
  && rm -rf /var/lib/apt/lists/* \
  && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
