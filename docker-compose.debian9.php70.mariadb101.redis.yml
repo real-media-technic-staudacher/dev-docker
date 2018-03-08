@@ -65,4 +65,4 @@ networks:
     driver: bridge
   nginx-proxy:
     external:
-      name: ngnixproxy_default
+      name: docker_default

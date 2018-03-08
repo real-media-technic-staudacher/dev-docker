@@ -1,6 +1,6 @@
 version: '2'
 services:
-  app:
+  nginx-proxy:
     image: rmts/proxy:latest
     restart: always
     container_name: ngnix_proxy
@@ -21,6 +21,19 @@ services:
 
 volumes:
   portainer_data:
+
+# Generates a default network for this docker compose named docker_default. Add this network as external network
+# to your projects:
+#
+# nginx-proxy:
+#      external:
+#        name: docker_default
+#
+# and reference it in your "app" container:
+#
+# networks:
+#  - scoopdeploynet
+#  - nginx-proxy
 
 networks:
   default:
