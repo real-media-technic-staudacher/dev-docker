@@ -3,7 +3,7 @@ services:
   app:
     image: rmts/proxy:latest
     restart: always
-    container_name: ${COMPOSE_PROJECT_NAME}
+    container_name: ngnix_proxy
     ports:
       - "80:80"
     volumes:
