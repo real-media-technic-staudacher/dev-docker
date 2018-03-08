@@ -1,7 +1,7 @@
 version: '2'
 services:
   app:
-    build: ./
+    image: rmts/proxy:latest
     restart: always
     container_name: ${COMPOSE_PROJECT_NAME}
     ports:
