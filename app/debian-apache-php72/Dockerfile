@@ -14,7 +14,7 @@ COPY xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 RUN apt-get update \
- && apt-get install -y git openssh-server zlib1g-dev supervisor libmagickwand-dev mysql-client libyaml-dev gnupg python-pip \
+ && apt-get install -y git openssh-server zlib1g-dev supervisor imagemagick libmagickwand-dev mysql-client libyaml-dev gnupg python-pip \
  && echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
  && apt-get update \
