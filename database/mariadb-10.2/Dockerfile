@@ -1,4 +1,4 @@
-FROM mariadb:10.2
+FROM mariadb:10.2.13
 
 MAINTAINER Patrick Thomas <patrick.thomas@staudacher.de>
 
