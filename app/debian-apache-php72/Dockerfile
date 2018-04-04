@@ -4,13 +4,6 @@ MAINTAINER Patrick Thomas <patrick.thomas@staudacher.de>
 
 ENV DEBIAN_FRONTEND noninteractive
 
-COPY apache/000-default.conf /etc/apache2/sites-available/
-COPY apache/apache2.conf /etc/apache2/
-COPY supervisor/*.conf /etc/supervisor/conf.d/
-COPY php_cli.ini /etc/php/7.0/cli/php.ini
-COPY php.ini /etc/php/7.0/apache2/php.ini
-COPY xdebug.ini /etc/php/7.0/mods-available/xdebug.ini
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 RUN apt-get update \
@@ -21,17 +14,24 @@ RUN apt-get update \
  && apt-get install -y ansible \
  && pip install 'docker-py>=1.7.0' \
  && pip install 'docker-compose>=1.7.0' \
- && pecl install imagick yaml \
+ && pecl install imagick yaml xdebug \
  && docker-php-ext-enable imagick yaml \
  && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl gd \
  && a2enmod rewrite \
  && rm -rf /var/lib/apt/lists/* \
  && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
  && apt-get clean
- 
+
 ENV PATH "$PATH:$HOME/.composer/vendor/bin"
 
 ENV PHP_IDE_CONFIG "serverName=docker"
+
+COPY apache/000-default.conf /etc/apache2/sites-available/
+COPY apache/apache2.conf /etc/apache2/
+COPY supervisor/*.conf /etc/supervisor/conf.d/
+#COPY php_cli.ini /etc/php/7.0/cli/php.ini
+COPY php.rmts.ini /usr/local/etc/php/conf.d
+COPY xdebug.rmts.ini /usr/local/etc/php/conf.d
 
 RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config \
   && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config \
