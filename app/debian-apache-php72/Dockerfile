@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 RUN apt-get update \
- && apt-get install -y git openssh-server zlib1g-dev supervisor imagemagick libmagickwand-dev libimage-exiftool-perl mysql-client libyaml-dev gnupg python-pip ffmpeg \
+ && apt-get install -y git openssh-server zlib1g-dev supervisor imagemagick libmagickwand-dev libimage-exiftool-perl mysql-client libyaml-dev gnupg python-pip ffmpeg cron sudo vim \
  && echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
  && apt-get update \
@@ -32,6 +32,9 @@ COPY supervisor/*.conf /etc/supervisor/conf.d/
 #COPY php_cli.ini /etc/php/7.0/cli/php.ini
 COPY php.rmts.ini /usr/local/etc/php/conf.d
 COPY xdebug.rmts.ini /usr/local/etc/php/conf.d
+COPY crontab /etc
+RUN chmod 0644 /etc/crontab
+
 
 RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config \
   && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config \
