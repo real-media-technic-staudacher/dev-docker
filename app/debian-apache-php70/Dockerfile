@@ -14,7 +14,7 @@ RUN apt-get update && \
     && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
     && apt-get clean
 
-RUN a2enmod rewrite mod_headers
+RUN a2enmod rewrite headers
 
 COPY apache/000-default.conf /etc/apache2/sites-available/
 COPY apache/apache2.conf /etc/apache2/
