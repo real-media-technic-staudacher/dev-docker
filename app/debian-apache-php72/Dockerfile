@@ -26,6 +26,8 @@ ENV PATH "$PATH:$HOME/.composer/vendor/bin"
 
 ENV PHP_IDE_CONFIG "serverName=docker"
 
+ENV WEB_DOCUMENT_ROOT=/var/www/html/public
+
 COPY apache/000-default.conf /etc/apache2/sites-available/
 COPY apache/apache2.conf /etc/apache2/
 COPY supervisor/*.conf /etc/supervisor/conf.d/
@@ -35,6 +37,7 @@ COPY xdebug.rmts.ini /usr/local/etc/php/conf.d
 COPY crontab /etc
 RUN chmod 0644 /etc/crontab
 
+RUN sed -ri -e 's!/var/www/html!${WEB_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 
 RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config \
   && echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config \
