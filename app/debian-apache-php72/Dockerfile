@@ -16,7 +16,7 @@ RUN apt-get update \
  && pip install 'docker-compose>=1.7.0' \
  && pecl install imagick yaml xdebug \
  && docker-php-ext-enable imagick yaml \
- && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl gd exif \
+ && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl gd exif bcmath \
  && a2enmod headers rewrite \
  && rm -rf /var/lib/apt/lists/* \
  && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
