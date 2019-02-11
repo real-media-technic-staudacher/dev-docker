@@ -18,7 +18,7 @@ services:
       - nginx-proxy
 
   database:
-    image: rmts/database:10.2
+    image: rmts/database:10.3
     environment:
       - "MYSQL_DATABASE=${DB_DATABASE}"
 #    ports:
@@ -27,14 +27,14 @@ services:
       - CUSTOMERnet
 
   database-testing:
-    image: rmts/database:10.2
+    image: rmts/database:10.3
     environment:
       - "MYSQL_DATABASE=testing"
     networks:
       - CUSTOMERnet
 
   redis:
-    image: redis:4-alpine
+    image: redis:5-alpine
     networks:
       - CUSTOMERnet
 
@@ -47,12 +47,12 @@ services:
       - CUSTOMERnet
 
   elasticsearch:
-    image: elasticsearch:2.4.5
+    image: elasticsearch:6.6.0
     networks:
       - CUSTOMERnet
 
   kibana:
-    image: kibana:4.6.6
+    image: kibana:6.6.0
     environment:
       - "VIRTUAL_HOST=kibana.CUSTOMER.lvh.me"
       - "VIRTUAL_PORT=5601"
