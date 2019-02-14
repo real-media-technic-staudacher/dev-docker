@@ -7,7 +7,7 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 RUN apt-get update \
- && apt-get install -y git openssh-server zlib1g-dev supervisor imagemagick libmagickwand-dev libimage-exiftool-perl mysql-client libyaml-dev gnupg python-pip python-netaddr ffmpeg cron sudo vim zip \
+ && apt-get install -y git openssh-server zlib1g-dev supervisor imagemagick libmagickwand-dev libimage-exiftool-perl mysql-client libyaml-dev gnupg python-pip python-netaddr ffmpeg cron sudo vim zip pdftk \
  && echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" >> /etc/apt/sources.list \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
  && apt-get update \
@@ -17,7 +17,7 @@ RUN apt-get update \
  && pecl install imagick yaml xdebug \
  && docker-php-ext-enable imagick yaml \
  && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl gd exif bcmath \
- && a2enmod headers rewrite pdftk \
+ && a2enmod headers rewrite \
  && rm -rf /var/lib/apt/lists/* \
  && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
  && apt-get clean
