@@ -17,7 +17,7 @@ RUN apt-get update \
  && pecl install imagick yaml xdebug \
  && docker-php-ext-enable imagick yaml \
  && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl gd exif bcmath \
- && a2enmod headers rewrite \
+ && a2enmod headers rewrite pdftk \
  && rm -rf /var/lib/apt/lists/* \
  && rm -Rf /usr/share/doc && rm -Rf /usr/share/man \
  && apt-get clean
