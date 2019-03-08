@@ -33,8 +33,10 @@ COPY supervisor/*.conf /etc/supervisor/conf.d/
 #COPY php_cli.ini /etc/php/7.0/cli/php.ini
 COPY php.rmts.ini /usr/local/etc/php/conf.d
 COPY xdebug.rmts.ini /usr/local/etc/php/conf.d
-COPY crontab /etc
-RUN chmod 0644 /etc/crontab
+COPY laravel-scheduler /root
+#RUN chmod 0644 /etc/cron.d/laravel-scheduler
+RUN cat /root/laravel-scheduler >> /etc/crontab
+RUN service cron restart
 
 RUN sed -ri -e 's!/var/www/html!${WEB_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 
