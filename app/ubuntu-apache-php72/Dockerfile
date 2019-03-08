@@ -30,13 +30,11 @@ ENV WEB_DOCUMENT_ROOT=/var/www/html/public
 COPY apache/000-default.conf /etc/apache2/sites-available/
 COPY apache/apache2.conf /etc/apache2/
 COPY supervisor/*.conf /etc/supervisor/conf.d/
-#COPY php_cli.ini /etc/php/7.0/cli/php.ini
-COPY php.rmts.ini /usr/local/etc/php/conf.d
-COPY xdebug.rmts.ini /usr/local/etc/php/conf.d
-COPY laravel-scheduler /root
-#RUN chmod 0644 /etc/cron.d/laravel-scheduler
-RUN cat /root/laravel-scheduler >> /etc/crontab
-RUN service cron restart
+COPY php.rmts.ini /usr/local/etc/php/conf.d/
+COPY xdebug.rmts.ini /usr/local/etc/php/conf.d/
+
+ADD laravel-scheduler /etc/cron.d/laravel-scheduler
+RUN chmod 0600 /etc/cron.d/laravel-scheduler
 
 RUN sed -ri -e 's!/var/www/html!${WEB_DOCUMENT_ROOT}!g' /etc/apache2/sites-available/*.conf
 

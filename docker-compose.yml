@@ -6,8 +6,13 @@ services:
     container_name: ngnix_proxy
     ports:
       - "80:80"
+#      - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+#      - /Users/patrick.thomas/dev/ssl:/etc/nginx/certs:ro
+#    environment:
+#      - "VIRTUAL_PROTO=https"
+#      - "VIRTUAL_PORT=443"
 
   portainer:
     image: portainer/portainer
