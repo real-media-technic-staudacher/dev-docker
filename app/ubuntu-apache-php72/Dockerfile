@@ -31,7 +31,7 @@ COPY apache/000-default.conf /etc/apache2/sites-available/
 COPY apache/apache2.conf /etc/apache2/
 COPY supervisor/*.conf /etc/supervisor/conf.d/
 COPY php.rmts.ini /usr/local/etc/php/conf.d/
-COPY xdebug.rmts.ini /usr/local/etc/php/conf.d/
+COPY xdebug.rmts.ini /etc/php/7.2/apache2/conf.d/
 
 ADD laravel-scheduler /etc/cron.d/laravel-scheduler
 RUN chmod 0600 /etc/cron.d/laravel-scheduler
