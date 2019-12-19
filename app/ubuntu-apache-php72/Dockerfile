@@ -11,7 +11,7 @@ RUN apt-get update \
  && pip install 'docker-py>=1.7.0' \
  && pip install 'docker-compose>=1.7.0' \
  && pip install zabbix-api \
- && pip install git+https://github.com/ansible/ansible.git@2.9 \
+ && pip install git+https://github.com/ansible/ansible.git@v2.9.2 \
 # && pecl install imagick yaml \
 # && docker-php-ext-enable imagick yaml \
 # && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl gd exif \
