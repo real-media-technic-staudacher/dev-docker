@@ -8,10 +8,10 @@ RUN apt-get update \
  && apt-get install -y curl php php-imagick php-mysqli php-mbstring php-curl php-xdebug php-pdo php-zip php-gd php-exif php-bcmath php-pear php-redis php7.4-dev git openssh-server zlib1g-dev supervisor imagemagick libmagickwand-dev libimage-exiftool-perl mysql-client libyaml-dev gnupg python3-pip python3-netaddr ffmpeg cron sudo vim zip \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
  && apt-get update \
- && pip install 'docker-py>=1.7.0' \
- && pip install 'docker-compose>=1.7.0' \
- && pip install zabbix-api \
- && pip install git+https://github.com/ansible/ansible.git@v2.9.2 \
+ && pip3 install 'docker-py>=1.7.0' \
+ && pip3 install 'docker-compose>=1.7.0' \
+ && pip3 install zabbix-api \
+ && pip3 install git+https://github.com/ansible/ansible.git@v2.9.2 \
 # && pecl install imagick yaml \
 # && docker-php-ext-enable imagick yaml \
 # && docker-php-ext-install mysqli pdo pdo_mysql zip pcntl gd exif \
