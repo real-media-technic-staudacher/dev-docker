@@ -1,4 +1,4 @@
-version: '2'
+version: '3'
 services:
   nginx-proxy:
     image: rmts/proxy:latest
@@ -43,3 +43,4 @@ volumes:
 networks:
   default:
     driver: bridge
+      name: docker_default
