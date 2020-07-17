@@ -15,7 +15,7 @@ services:
 #      - "VIRTUAL_PORT=443"
 
   portainer:
-    image: portainer/portainer
+    image: portainer/portainer:latest
     restart: always
     container_name: portainer
     ports:
@@ -43,4 +43,3 @@ volumes:
 networks:
   default:
     driver: bridge
-      name: docker_default
