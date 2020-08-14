@@ -5,7 +5,7 @@ MAINTAINER Patrick Thomas <patrick.thomas@staudacher.de>
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update \
- && apt-get install -y curl php php-imagick php-mysqli php-mbstring php-curl php-xdebug php-pdo php-zip php-gd php-exif php-bcmath php-pear php-redis php7.2-dev git openssh-server zlib1g-dev supervisor imagemagick libmagickwand-dev libimage-exiftool-perl mysql-client libyaml-dev gnupg python-pip python-netaddr ffmpeg cron sudo vim zip \
+ && apt-get install -y curl php php-imagick php-mysqli php-mbstring php-curl php-xdebug php-pdo php-zip php-gd php-exif php-bcmath php-pear php-redis php7.2-dev git openssh-server zlib1g-dev supervisor imagemagick libmagickwand-dev libimage-exiftool-perl mysql-client libyaml-dev gnupg python-pip python-netaddr ffmpeg cron sudo vim zip lsof \
  && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
  && apt-get update \
  && pip install 'docker-py>=1.7.0' \
