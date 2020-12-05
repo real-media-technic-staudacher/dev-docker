@@ -1,4 +1,4 @@
-FROM jwilder/nginx-proxy
+FROM jwilder/nginx-proxy:latest
 
 RUN { \
       echo 'proxy_connect_timeout 600;'; \
