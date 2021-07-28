@@ -13,7 +13,7 @@ services:
       - "QUEUE_WORKER=app-default.conf scoopos-aggregations.conf scoopos-blacklist.conf scoopos-mediaserver-default.conf scoopos-mediaserver-formatgeneration.conf scoopos-mediaserver-validation.conf"
       - "VIRTUAL_HOST=CUSTOMER.lvh.me"
     networks:
-      - SABOnet
+      - CUSTOMERnet
       - nginx-proxy
 
   app-press:
@@ -28,7 +28,7 @@ services:
       - "QUEUE_WORKER=app-default.conf scoopos-aggregations.conf scoopos-blacklist.conf scoopos-mediaserver-default.conf scoopos-mediaserver-formatgeneration.conf scoopos-mediaserver-validation.conf"
       - "VIRTUAL_HOST=CUSTOMER-press.lvh.me"
     networks:
-      - SABOnet
+      - CUSTOMERnet
       - nginx-proxy
 
   app-professionals:
@@ -43,7 +43,7 @@ services:
       - "QUEUE_WORKER=app-default.conf scoopos-aggregations.conf scoopos-blacklist.conf scoopos-mediaserver-default.conf scoopos-mediaserver-formatgeneration.conf scoopos-mediaserver-validation.conf"
       - "VIRTUAL_HOST=CUSTOMER-professional.lvh.me"
     networks:
-      - SABOnet
+      - CUSTOMERnet
       - nginx-proxy
 
   database:
@@ -58,7 +58,7 @@ services:
       MYSQL_PASSWORD: "${DB_PASSWORD}"
       TZ: Europe/Paris
     networks:
-      - SABOnet
+      - CUSTOMERnet
 
   database-testing:
     image: mariadb:10.3
@@ -71,19 +71,19 @@ services:
       MYSQL_PASSWORD: "${DB_PASSWORD}"
       TZ: Europe/Paris
     networks:
-      - SABOnet
+      - CUSTOMERnet
 
   redis:
     image: redis:5-alpine
     networks:
-      - SABOnet
+      - CUSTOMERnet
 
   elasticsearch:
     image: elasticsearch:7.10.1
     environment:
       - "discovery.type=single-node"
     networks:
-      - SABOnet
+      - CUSTOMERnet
 
   kibana:
     image: kibana:7.10.1
@@ -91,7 +91,7 @@ services:
       - "VIRTUAL_HOST=kibana.CUSTOMER.lvh.me"
       - "VIRTUAL_PORT=5601"
     networks:
-      - SABOnet
+      - CUSTOMERnet
       - nginx-proxy
 
   webpack:
@@ -100,10 +100,10 @@ services:
       - ./:/home/app:cached
       - /home/app/node_modules
     networks:
-      - SABOnet
+      - CUSTOMERnet
 
 networks:
-  SABOnet:
+  CUSTOMERnet:
     driver: bridge
   nginx-proxy:
     external:
