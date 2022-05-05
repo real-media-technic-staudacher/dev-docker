@@ -1,0 +1,95 @@
+version: '3.3'
+services:
+  app:
+#    image: rmts/app:7.4-ubuntu20
+        build: ../dev-docker/app/ubuntu-apache-php81
+    volumes:
+      - ./:/var/www/html:cached
+      - ~/.ssh:/root/.ssh:ro
+      - /tmp
+    ports:
+      - "20210:22"
+    environment:
+      - "QUEUE_WORKER=app-default.conf scoopos-aggregations.conf scoopos-blacklist.conf scoopos-mediaserver-default.conf scoopos-mediaserver-formatgeneration.conf scoopos-mediaserver-validation.conf"
+      - "VIRTUAL_HOST=CUSTOMER.lvh.me"
+    networks:
+      - CUSTOMERnet
+      - nginx-proxy
+
+#  app-press:
+#    image: rmts/app:7.4-ubuntu20
+#    volumes:
+#      - ./:/var/www/html:cached
+#      - ~/.ssh:/root/.ssh:ro
+#      - /tmp
+#    ports:
+#      - "20211:22"
+#    environment:
+#      - "QUEUE_WORKER=app-default.conf scoopos-aggregations.conf scoopos-blacklist.conf scoopos-mediaserver-default.conf scoopos-mediaserver-formatgeneration.conf scoopos-mediaserver-validation.conf"
+#      - "VIRTUAL_HOST=CUSTOMER-press.lvh.me"
+#    networks:
+#      - CUSTOMERnet
+#      - nginx-proxy
+
+  database:
+    image: mariadb:10.5
+    volumes:
+      - ./database/dumps:/docker-entrypoint-initdb.d:ro
+    environment:
+      MYSQL_HOST: "localhost"
+      MYSQL_DATABASE: "${DB_DATABASE}"
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      TZ: Europe/Paris
+    networks:
+      - CUSTOMERnet
+
+  database-testing:
+    image: mariadb:10.5
+    volumes:
+      - ./database/dumps:/docker-entrypoint-initdb.d:ro
+    environment:
+      MYSQL_DATABASE: testing
+      MYSQL_USER: "${DB_USERNAME}"
+      MYSQL_ROOT_PASSWORD: "${DB_PASSWORD}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+      TZ: Europe/Paris
+    networks:
+      - CUSTOMERnet
+
+  redis:
+    image: redis:5-alpine
+    networks:
+      - CUSTOMERnet
+
+  elasticsearch:
+    image: elasticsearch:7.17.3
+    environment:
+      - "discovery.type=single-node"
+    networks:
+      - CUSTOMERnet
+
+  kibana:
+    image: kibana:7.17.3
+    environment:
+      - "VIRTUAL_HOST=kibana.CUSTOMER.lvh.me"
+      - "VIRTUAL_PORT=5601"
+    networks:
+      - CUSTOMERnet
+      - nginx-proxy
+
+  webpack:
+    image: rmts/webpack:11
+    volumes:
+      - ./:/home/app:cached
+      - /home/app/node_modules
+    networks:
+      - CUSTOMERnet
+
+networks:
+  CUSTOMERnet:
+    driver: bridge
+  nginx-proxy:
+    external:
+      name: docker_default
