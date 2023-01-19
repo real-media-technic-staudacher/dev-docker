@@ -1,45 +1,46 @@
-version: '3.3'
+version: '3.9'
 services:
-  nginx-proxy:
-    image: rmts/proxy:latest
+  proxy:
+    image: traefik:v2.9
     restart: always
-    container_name: ngnix_proxy
+    container_name: proxy
+    depends_on:
+      - step-ca
+    networks:
+      default:
     ports:
       - "80:80"
-#      - "443:443"
+      - "443:443"
+    environment:
+      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT: true
+      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_CASERVER: https://step-ca/acme/ACME/directory
+      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_EMAIL: id.dev@staudacher.de
+      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_TLSCHALLENGE: true
+      LEGO_CA_CERTIFICATES: /certificates/certs/root_ca.crt
+      LEGO_CA_SERVER_NAME: step-ca
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-#      - /Users/patrick.thomas/dev/ssl:/etc/nginx/certs:ro
-#    environment:
-#      - "VIRTUAL_PROTO=https"
-#      - "VIRTUAL_PORT=443"
-
-  portainer:
-    image: portainer/portainer:latest
-    restart: always
-    container_name: portainer
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - step-ca:/certificates
+  step-ca:
+    image: smallstep/step-ca
+    container_name: step-ca
+    networks:
+      default:
     ports:
-      - "9000:9000"
+      - 9850:9000
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - portainer_data:/data
+      - step-ca:/home/step
+    environment:
+      - DOCKER_STEPCA_INIT_NAME=staudacher-dev-ca
+      - DOCKER_STEPCA_INIT_PASSWORD=staudacher
+      - DOCKER_STEPCA_INIT_DNS_NAMES=0.0.0.0
+      - DOCKER_STEPCA_INIT_REMOTE_MANAGEMENT=true
+      - DOCKER_STEPCA_INIT_ACME=true
 
 volumes:
-  portainer_data:
-
-# Generates a default network for this docker compose named docker_default. Add this network as external network
-# to your projects:
-#
-# nginx-proxy:
-#      external:
-#        name: docker_default
-#
-# and reference it in your "app" container:
-#
-# networks:
-#  - scoopdeploynet
-#  - nginx-proxy
+  step-ca:
+    external: false
 
 networks:
   default:
-    name: docker_default
+    name: webproxy

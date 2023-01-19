@@ -1,1 +1,0 @@
-* * * * * sudo -u www-data php /var/www/html/artisan schedule:run >> /proc/1/fd/1
