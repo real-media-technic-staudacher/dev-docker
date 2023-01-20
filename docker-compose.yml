@@ -4,43 +4,66 @@ services:
     image: traefik:v2.9
     restart: always
     container_name: proxy
-    depends_on:
-      - step-ca
+ #   depends_on:
+ #     - step-ca
     networks:
-      default:
+      - webproxy
     ports:
       - "80:80"
       - "443:443"
     environment:
-      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT: true
-      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_CASERVER: https://step-ca/acme/ACME/directory
-      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_EMAIL: id.dev@staudacher.de
-      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_TLSCHALLENGE: true
-      LEGO_CA_CERTIFICATES: /certificates/certs/root_ca.crt
-      LEGO_CA_SERVER_NAME: step-ca
+      TRAEFIK_ENTRYPOINTS_HTTP: true
+      TRAEFIK_ENTRYPOINTS_HTTP_ADDRESS: :80
+#      TRAEFIK_ENTRYPOINTS_HTTPS: true
+#      TRAEFIK_ENTRYPOINTS_HTTPS_ADDRESS: :443
+      TRAEFIK_API: true
+      TRAEFIK_API_INSECURE: true
+      TRAEFIK_LOG_LEVEL: INFO
+      TRAEFIK_API_DASHBOARD: true
+      TRAEFIK_PROVIDERS_DOCKER: true
+#      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT: true
+#      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_CASERVER: https://step-ca/acme/ACME/directory
+#      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_EMAIL: id.dev@staudacher.de
+#      TRAEFIK_CERTIFICATESRESOLVERS_DEFAULT_ACME_TLSCHALLENGE: true
+#      LEGO_CA_CERTIFICATES: /certificates/certs/root_ca.crt
+#      LEGO_CA_SERVER_NAME: step-ca
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
-      - step-ca:/certificates
-  step-ca:
-    image: smallstep/step-ca
-    container_name: step-ca
+ #     - step-ca:/certificates
+ # step-ca:
+ #   image: smallstep/step-ca
+ #   container_name: step-ca
+ #   networks:
+ #     - webproxy
+ #   ports:
+ #     - 9850:9000
+ #     - 8443:443
+ #   volumes:
+ #     - step-ca:/home/step
+ #   environment:
+ #     - DOCKER_STEPCA_INIT_NAME=staudacher-dev-ca
+ #     - DOCKER_STEPCA_INIT_PASSWORD=staudacher
+ #     - DOCKER_STEPCA_INIT_DNS_NAMES=0.0.0.0,step-ca
+ #     - DOCKER_STEPCA_INIT_REMOTE_MANAGEMENT=true
+ #     - DOCKER_STEPCA_INIT_ACME=true
+  mailhog:
+    image: mailhog/mailhog
+    container_name: mailhog
     networks:
-      default:
+      - webproxy
     ports:
-      - 9850:9000
-    volumes:
-      - step-ca:/home/step
-    environment:
-      - DOCKER_STEPCA_INIT_NAME=staudacher-dev-ca
-      - DOCKER_STEPCA_INIT_PASSWORD=staudacher
-      - DOCKER_STEPCA_INIT_DNS_NAMES=0.0.0.0
-      - DOCKER_STEPCA_INIT_REMOTE_MANAGEMENT=true
-      - DOCKER_STEPCA_INIT_ACME=true
+      - "1025:1025"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.mailhog.entrypoints=http"
+      - "traefik.http.routers.mailhog.rule=Host(`mailhog.test`)"
+      - "traefik.http.services.mailhog.loadbalancer.server.port=8025"
 
-volumes:
-  step-ca:
-    external: false
+#volumes:
+#  step-ca:
+#    external: false
 
 networks:
-  default:
-    name: webproxy
+  webproxy:
+    driver: bridge
+    name: staudacher-proxy
