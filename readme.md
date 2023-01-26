@@ -27,5 +27,10 @@
           - sail
           - staudacher-proxy
 ```
+And we need to extend the "network" section of the docker-compose file with the following: 
+```yml
+     staudacher-proxy:
+       external: true
+   ```
 
 
