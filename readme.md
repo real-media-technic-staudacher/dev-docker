@@ -1,78 +1,43 @@
-## Run nginx Proxy
+## Whats Inside 
+ - Traefik as Reverse Proxy 
+ - Step-CA for SSL Certificates 
+ - Mailhog for Mail Catching
 
-    cd ./
-    docker-compose up -d
-    
-Then auto-restarts so is always up and running
+## Domains 
+ - mailhog.test 
 
-## Commands
+## How to use 
+    - Clone this repo 
+    - Run `docker-compose up -d`
 
-Start docker compose (run it)
+## Add Scoop-OS to Proxy 
+   - Extend the `docker-compose.yml` file with the following, service should be the scoop-os-container:
+   - __CUSTOMERNAME__ should be replaced with the domain prefix, e.g. "madeleine"
+   ```yml
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.__CUSTOMERNAME__.entrypoints=http"
+      - "traefik.http.routers.__CUSTOMERNAME__.rule=Host(`__CUSTOMERNAME__-scoopos.test`)"
+      - "traefik.http.middlewares.__CUSTOMERNAME__-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.__CUSTOMERNAME__.middlewares=__CUSTOMERNAME__-https-redirect"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.entrypoints=https"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.rule=Host(`__CUSTOMERNAME__-scoopos.test`)"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.tls=true"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.tls.certresolver=default"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.service=__CUSTOMERNAME__"
+      - "traefik.http.services.__CUSTOMERNAME__.loadbalancer.server.port=80"
+      - "traefik.docker.network=staudacher-proxy"
+   ```
+   - Afterwards we need to extend the network on the given service, with sail add a second entry with "staudacher-proxy"
+```yml 
+        networks:
+          - sail
+          - staudacher-proxy
+```
+And we need to extend the "network" section of the docker-compose file with the following: 
+```yml
+     staudacher-proxy:
+       external: true
+   ```
 
-    cd [project directory]
-    docker-compose -d up
 
-Stop docker compose (stop it)
-
-    docker-compose down
-
-Run composer update
-
-    docker-compose exec app composer update
-    
-    # or
-    
-    alias cu="docker-compose exec app composer update"
-    cu
-    
-Use NPM
-
-    docker-compose run node bash
-    npm install && npm run dev
-
-or
-    
-    docker-compose run webpack sh -c 'npm install && npm run watch'
-    
-See logfiles
-
-    docker-compose logs -f
-
-## In your Laravel Project
-
-Set this to get error logs from your docker container
-
-    APP_LOG=errorlog
-    
-## Debugging
-
-Use Port 9001
-
-## Testing
-
-A testing database will be created automatically
-
-MYSQL_DATABASE = testing
-MYSQL_USER = testing
-MYSQL_PASSWORD = testing
-
-Setup your remote php interpreter
-- Languages & Frameworks > PHP > CLI Interpreter
-- Choose "SSH Credentials". User "root". Auth Type "Key pair"
-- If you do this the first time. Generate Public Key on your host. Copy your id_rsa.pub to authorized_hosts in your `~/.ssh` directory
-
-## Queue worker
-
-Activate it using environment variables
-
-    services:
-      app:
-        image: rmts/app:7.2
-        volumes:
-          - ./:/var/www/html:cached
-        environment:
-          - "QUEUE_WORKER=app-default.conf scoopos-aggregations.conf scoopos-blacklist.conf scoopos-mediaserver-default.conf scoopos-mediaserver-formatgeneration.conf scoopos-mediaserver-validation.conf"
-          - "VIRTUAL_HOST=scoop-deploy.lvh.me"
-          - "VIRTUAL_PORT=80"
-          
-It defaults to `ENV QUEUE_WORKER_DIR "/var/www/html/resources/queue-worker". You can overwrite this base path as well in your `docker-compose.yml`
