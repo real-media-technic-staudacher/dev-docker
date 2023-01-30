@@ -74,7 +74,7 @@ services:
       - "traefik.http.middlewares.mailhog-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.mailhog.middlewares=mailhog-https-redirect"
       - "traefik.http.routers.mailhog-secure.entrypoints=https"
-      - "traefik.http.routers.mailhog-secure.rule=Host(`mailhog69.test`)"
+      - "traefik.http.routers.mailhog-secure.rule=Host(`mailhog.test`)"
       - "traefik.http.routers.mailhog-secure.tls=true"
       - "traefik.http.routers.mailhog-secure.tls.certresolver=default"
       - "traefik.http.routers.mailhog-secure.service=mailhog"

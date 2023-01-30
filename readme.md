@@ -14,12 +14,19 @@
    - Extend the `docker-compose.yml` file with the following, service should be the scoop-os-container:
    - __CUSTOMERNAME__ should be replaced with the domain prefix, e.g. "madeleine"
    ```yml
-        labels:
-          - "traefik.enable=true"
-          - "traefik.http.routers.__CUSTOMERNAME__.entrypoints=http"
-          - "traefik.http.routers.__CUSTOMERNAME__.rule=Host(`__CUSTOMERNAME__-scoopos.test`)"
-          - "traefik.http.services.__CUSTOMERNAME__.loadbalancer.server.port=80"
-          - "traefik.docker.network=staudacher-proxy"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.__CUSTOMERNAME__.entrypoints=http"
+      - "traefik.http.routers.__CUSTOMERNAME__.rule=Host(`__CUSTOMERNAME__-scoopos.test`)"
+      - "traefik.http.middlewares.__CUSTOMERNAME__-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.__CUSTOMERNAME__.middlewares=__CUSTOMERNAME__-https-redirect"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.entrypoints=https"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.rule=Host(`__CUSTOMERNAME__-scoopos.test`)"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.tls=true"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.tls.certresolver=default"
+      - "traefik.http.routers.__CUSTOMERNAME__-secure.service=__CUSTOMERNAME__"
+      - "traefik.http.services.__CUSTOMERNAME__.loadbalancer.server.port=80"
+      - "traefik.docker.network=staudacher-proxy"
    ```
    - Afterwards we need to extend the network on the given service, with sail add a second entry with "staudacher-proxy"
 ```yml 
