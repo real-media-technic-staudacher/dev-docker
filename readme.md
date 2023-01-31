@@ -16,7 +16,7 @@
 
 - Remove `- '${APP_PORT:-80}:80'` from your `docker-compose.yml` in Line 14 under `ports`
 - Extend the `docker-compose.yml` file with the following:
-  - Add it to the laravel.test service (scoop-os-container), the position doesn't matter.
+  - Place it in the laravel.test service (scoop-os-container), the position doesn't matter.
   - __CUSTOMERNAME__ should be replaced with the domain prefix. Just check the `.env` for `APP_URL` and use the part
     before `-scoopos.test, e.g. "madeleine"
 
