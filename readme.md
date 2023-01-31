@@ -9,8 +9,8 @@
 
 ## How to use
 
-    - Clone this repo 
-    - Run `docker-compose up -d`
+- Clone this repo 
+- Run `docker-compose up -d`
 
 ## Changes for every project
 
