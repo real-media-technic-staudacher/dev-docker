@@ -1,7 +1,7 @@
 ## Whats Inside 
- - Traefik as Reverse Proxy
- - Step-CA for SSL Certificates
- - Mailhog for Mail Catching
+- Traefik as Reverse Proxy
+- Step-CA for SSL Certificates
+- Mailhog for Mail Catching
 
 ## Domains
 
