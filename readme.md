@@ -16,7 +16,7 @@
 
 - Remove `- '${APP_PORT:-80}:80'` from your `docker-compose.yml` in Line 14 under `ports`
 - Extend the `docker-compose.yml` file with the following:
-  - Add it to the laravel.test service (scoop-os-container), the position doesn't matter.
+  - Place it in the laravel.test service (scoop-os-container), the position doesn't matter.
   - __CUSTOMERNAME__ should be replaced with the domain prefix. Just check the `.env` for `APP_URL` and use the part
     before `-scoopos.test, e.g. "madeleine"
 
@@ -40,15 +40,15 @@ labels:
   second entry.
 ```yml 
 networks:
-     staudacher-proxy:
-          external: true
+    - sail
+    - staudacher-proxy
 ```
 
 - Extend the `networks` (around L107) section of the `docker-compose.yml` with the following:
 
 ```yml
 staudacher-proxy:
-   external: true
+    external: true
 ```
 
 - Change in your `.env` `APP_URL` from `http` to `https`
