@@ -10,6 +10,7 @@
 ## How to use
 
 - Clone this repo 
+- Stop all running containers (if applicable)
 - Run `docker-compose up -d`
 
 ## Changes for every project
