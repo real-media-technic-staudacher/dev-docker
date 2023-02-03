@@ -72,7 +72,7 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mailhog.entrypoints=http"
-      - "traefik.http.routers.mailhog.rule=Host(`mailhog69.test`)"
+      - "traefik.http.routers.mailhog.rule=Host(`mailhog.test`)"
       - "traefik.http.middlewares.mailhog-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.mailhog.middlewares=mailhog-https-redirect"
       - "traefik.http.routers.mailhog-secure.entrypoints=https"
