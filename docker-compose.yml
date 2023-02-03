@@ -54,6 +54,7 @@ services:
       - 9850:9000
     volumes:
       - step-ca:/home/step
+    restart: always
     environment:
       - DOCKER_STEPCA_INIT_NAME=step-ca
       - DOCKER_STEPCA_INIT_PASSWORD=staudacher
@@ -63,6 +64,7 @@ services:
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
+    restart: always
     networks:
       - staudacher-proxy
     ports:
