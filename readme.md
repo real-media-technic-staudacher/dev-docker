@@ -45,6 +45,12 @@ networks:
     - staudacher-proxy
 ```
 
+- Change the port of the service mariadb to an unoccupied port `${FORWARD_DB_PORT:-3306}:3307`
+
+| Customer  | Port |
+| ------------- | ------------- |
+| APAC | 3307 |
+
 - Extend the `networks` (around L107) section of the `docker-compose.yml` with the following:
 
 ```yml
