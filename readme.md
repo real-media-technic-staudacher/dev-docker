@@ -45,11 +45,14 @@ networks:
     - staudacher-proxy
 ```
 
-- Change the port of the service `mariadb` to an unoccupied port `${FORWARD_DB_PORT:-3306}:3307`
+- Change the port of the service `mariadb` to an unoccupied port. For example `${FORWARD_DB_PORT:-3306}:3306` to `${FORWARD_DB_PORT:-3307}:3306`
 
 | Customer  | Port |
-| ------------- | ------------- |
+|-----------|------|
+| ELUX | 3306 |
 | APAC | 3307 |
+| MM | 3308 |
+| LOB | 3309 |
 
 - Extend the `networks` (around L107) section of the `docker-compose.yml` with the following:
 
