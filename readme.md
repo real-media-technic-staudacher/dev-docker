@@ -45,7 +45,7 @@ networks:
     - staudacher-proxy
 ```
 
-- Change the port of the service mariadb to an unoccupied port `${FORWARD_DB_PORT:-3306}:3307`
+- Change the port of the service `mariadb` to an unoccupied port `${FORWARD_DB_PORT:-3306}:3307`
 
 | Customer  | Port |
 | ------------- | ------------- |
