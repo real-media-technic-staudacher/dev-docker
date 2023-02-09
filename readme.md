@@ -55,6 +55,7 @@ networks:
 | Loberon     | 3309 |
 | Thomas Sabo | 3310 |
 | Saboteur    | 3311 |
+| scoopOS    | 3312 |
 
 - Extend the `networks` (around L107) section of the `docker-compose.yml` with the following:
 
