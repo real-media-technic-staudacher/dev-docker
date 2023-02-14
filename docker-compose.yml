@@ -49,12 +49,14 @@ services:
     image: smallstep/step-ca
     container_name: step-ca
     networks:
-      - staudacher-proxy
+      staudacher-proxy:
+        ipv4_address: 172.13.37.2
     dns: 172.13.37.3
     ports:
       - 9850:9000
     volumes:
       - step-ca:/home/step
+    restart: always
     environment:
       - DOCKER_STEPCA_INIT_NAME=step-ca
       - DOCKER_STEPCA_INIT_PASSWORD=staudacher
@@ -64,14 +66,16 @@ services:
   mailhog:
     image: mailhog/mailhog
     container_name: mailhog
+    restart: always
     networks:
-      - staudacher-proxy
+      staudacher-proxy:
+        ipv4_address: 172.13.37.10
     ports:
       - "1025:1025"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.mailhog.entrypoints=http"
-      - "traefik.http.routers.mailhog.rule=Host(`mailhog69.test`)"
+      - "traefik.http.routers.mailhog.rule=Host(`mailhog.test`)"
       - "traefik.http.middlewares.mailhog-https-redirect.redirectscheme.scheme=https"
       - "traefik.http.routers.mailhog.middlewares=mailhog-https-redirect"
       - "traefik.http.routers.mailhog-secure.entrypoints=https"
