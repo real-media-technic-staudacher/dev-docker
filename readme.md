@@ -56,6 +56,7 @@ networks:
 | Thomas Sabo | 3310    | 5605   | 9204          |
 | Saboteur    | 3311    | 5606   | 9205          |
 | scoopOS     | 3312    | 5607   | 9206          |
+| PUMA        | 3313    |        |               |
 
 - Extend the `networks` (around L107) section of the `docker-compose.yml` with the following:
 
