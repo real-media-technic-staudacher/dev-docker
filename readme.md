@@ -47,17 +47,18 @@ networks:
 
 - Change the port of the service `mariadb` to an unoccupied port. For example `${FORWARD_DB_PORT:-3306}:3306` to `${FORWARD_DB_PORT:-3307}:3306`
 
-| Customer    | MariaDB | Kibana | ElasticSearch |
-|-------------|---------|:-------|:--------------|
-| ELUX        | 3306    | 5601   | 9200          |
-| APAC        | 3307    | 5602   | 9201          |
-| Madeleine   | 3308    | 5603   | 9202          |
-| Loberon     | 3309    | 5604   | 9203          |
-| Thomas Sabo | 3310    | 5605   | 9204          |
-| Saboteur    | 3311    | 5606   | 9205          |
-| scoopOS     | 3312    | 5607   | 9206          |
-| PUMA        | 3313    |        |               |
-| ELUX CPT    | 3314    |        |               |
+| Customer              | MariaDB | Kibana | ElasticSearch |
+|-----------------------|---------|:-------|:--------------|
+| ELUX                  | 3306    | 5601   | 9200          |
+| APAC                  | 3307    | 5602   | 9201          |
+| Madeleine             | 3308    | 5603   | 9202          |
+| Loberon               | 3309    | 5604   | 9203          |
+| Thomas Sabo           | 3310    | 5605   | 9204          |
+| Saboteur              | 3311    | 5606   | 9205          |
+| scoopOS               | 3312    | 5607   | 9206          |
+| PUMA                  | 3313    |        |               |
+| ELUX CPT              | 3314    |        |               |
+| ELUX Asset API Client | 3315    |        |               |
 
 - Extend the `networks` (around L107) section of the `docker-compose.yml` with the following:
 
