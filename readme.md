@@ -95,7 +95,7 @@ Error response from daemon: Head "https://registry-1.docker.io/v2/library/traefi
 ```
 Try changing your DNS to 8.8.8.8.
 
-### 3. 
+### 3. Ports are not available
 ```
 Error response from daemon: Ports are not available: exposing port UDP 127.0.0.1:53 -> 0.0.0.0:0: command failed
 ```
