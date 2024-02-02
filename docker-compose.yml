@@ -35,7 +35,6 @@ services:
 
   dnsmasq:
     build: "dns"
-    image: dwyschka/dnsmasq:latest
     container_name: dnsmasq
     networks:
       staudacher-proxy:
@@ -43,6 +42,21 @@ services:
     restart: always
     environment:
       PROXYIP: 172.13.37.5
+      PROXYTLD: .test
+
+  dnsmasq-local:
+    build: "dns"
+    container_name: dnsmasq-local
+    privileged: true
+    ports:
+      - "127.0.0.1:53:53/udp"
+      - "127.0.0.1:53:53/tcp"
+    networks:
+      staudacher-proxy:
+        ipv4_address: 172.13.37.7
+    restart: always
+    environment:
+      PROXYIP: 127.0.0.1
       PROXYTLD: .test
 
   step-ca:
