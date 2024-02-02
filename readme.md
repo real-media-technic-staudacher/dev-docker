@@ -12,7 +12,19 @@
 - Clone this repo 
 - Stop all running containers (if applicable)
 - Run `docker-compose up -d`
+- Add Resolver-File
 
+## Add Resolver-File 
+In order to resolve our '.test' - domain locally, there is a new container added, 'dnsmasq-local', it binds on port 53 on our host-system.
+Now we need to create a file 
+`/etc/resolver/test`, the `test` part, is our domain. if you change .test in the environment of the dnsmasq-container, you need to add a second file. if the folder `/etc/resolver` does not exist, create it. 
+
+Fill the File with following content:
+```
+nameserver 127.0.0.1
+```
+
+After that, mac OS uses the nameserver on 127.0.0.1 to resolve the `.test` domain.
 ## Changes for every project
 
 - Remove `- '${APP_PORT:-80}:80'` from your `docker-compose.yml` in Line 14 under `ports`
@@ -82,3 +94,14 @@ You need an accout on https://hub.docker.com/ and login to `docker desktop`.
 Error response from daemon: Head "https://registry-1.docker.io/v2/library/traefik/manifests/v2.9": dialing registry-1.docker.io:443 static system has no HTTPS proxy: connecting to 34.194.164.123:443: dial tcp 34.194.164.123:443: i/o timeout
 ```
 Try changing your DNS to 8.8.8.8.
+
+### 3. 
+```
+Error response from daemon: Ports are not available: exposing port UDP 127.0.0.1:53 -> 0.0.0.0:0: command failed
+```
+
+Fix:
+```
+Edit ~/Library/Group\ Containers/group.com.docker/settings.json and add "kernelForUDP": false
+Restart Docker Desktop
+```
