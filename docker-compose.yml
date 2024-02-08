@@ -109,5 +109,5 @@ networks:
     name: staudacher-proxy
     ipam:
       config:
-        - subnet: "172.13.37.3/24"
+        - subnet: "172.13.37.0/24"
           gateway: "172.13.37.1"
