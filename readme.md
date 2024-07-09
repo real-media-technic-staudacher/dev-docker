@@ -71,7 +71,7 @@ networks:
 | PUMA                  | 3313    |        |               |
 | ELUX CPT              | 3314    |        |               |
 | ELUX Asset API Client | 3315    |        |               |
-| Goldner (Madeleine)   | 3316    |        |               |
+| Goldner (Madeleine)   | 3316    | 5611   |               |  
 
 - Extend the `networks` (around L107) section of the `docker-compose.yml` with the following:
 
